@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def hello_world():
+def main_route():
     pdb_id = request.args.get("pdb_id", "6lu7")
     file_format = request.args.get("format", "mmtf")
     file_name = rcsb.fetch(pdb_id, file_format, biotite.temp_dir())
