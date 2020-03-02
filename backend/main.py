@@ -23,7 +23,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def main_route():
-    pdb_id = request.args.get("pdb_id", "6lu7")
+    pdb_id = request.args.get("pdb_id", "1Q2W")
     file_format = request.args.get("format", "mmtf")
     file_name = rcsb.fetch(pdb_id, file_format, biotite.temp_dir())
     mmtf_file = mmtf.MMTFFile()
