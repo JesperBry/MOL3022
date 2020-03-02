@@ -1,0 +1,8 @@
+numpy
+biotite
+msgpack
+requests
+black
+isort
+flask
+gevent
