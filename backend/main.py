@@ -37,6 +37,13 @@ def main_route():
     return jsonify(secondary_structure=sse.tolist())
 
 
+@app.after_request
+def add_cors(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    return response
+
+
 if __name__ == "__main__":
     http_server = WSGIServer(("", 5000), app)
     http_server.serve_forever()
