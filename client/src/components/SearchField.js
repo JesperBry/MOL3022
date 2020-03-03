@@ -1,4 +1,4 @@
-import React from "react";
+import React from "reactn";
 import { Form, Input } from "reactstrap";
 import Container from "@material-ui/core/Container";
 
@@ -9,9 +9,12 @@ class SearchField extends React.Component {
     super(props);
 
     this.state = {
-      searchData: "",
       inputVal: ""
     };
+
+    this.setGlobal({
+      searchData: []
+    });
   }
 
   handleOnChange = e => {
@@ -28,7 +31,7 @@ class SearchField extends React.Component {
       res
         .json()
         .then(data =>
-          this.setState({
+          this.setGlobal({
             searchData: data.results
           })
         )

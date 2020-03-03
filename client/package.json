@@ -12,6 +12,7 @@
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",
     "react-skylight": "^0.5.1",
+    "reactn": "^2.2.6",
     "reactstrap": "^8.4.1"
   },
   "scripts": {
