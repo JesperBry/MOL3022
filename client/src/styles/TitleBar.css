@@ -1,0 +1,35 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+
+.ml-auto {
+  margin-right: 2.5rem;
+  cursor: pointer;
+}
+
+.navbar {
+  height: 6rem;
+}
+
+.navbar-brand,
+.nav-link {
+  margin-top: 1.2rem;
+  position: absolute;
+  top: 0;
+}
+
+.navbar .navbar-brand {
+  font-size: 2rem;
+  margin: 8px 0;
+}
+
+.nav-link {
+  font-size: 1.8rem;
+  right: 2rem;
+}
+
+.title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  margin-left: 1rem;
+  letter-spacing: 0.2rem;
+  font-size: 2rem;
+}
