@@ -5,6 +5,44 @@ import Container from "@material-ui/core/Container";
 import "../styles/SearchField.css";
 
 class SearchField extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      searchData: "",
+      inputVal: ""
+    };
+  }
+
+  handleOnChange = e => {
+    this.setState({ inputVal: e });
+  };
+
+  handleFelch = () => {
+    let apiURL = "http://localhost:5000/search?keywords=";
+    if (process.env.NODE_ENV === "production") {
+      apiURL = "/search?keywords=";
+    }
+    console.log(apiURL + this.state.inputVal);
+    fetch(apiURL + this.state.inputVal).then(res =>
+      res
+        .json()
+        .then(data =>
+          this.setState({
+            searchData: data.results
+          })
+        )
+        .catch(error => {
+          console.log(error);
+        })
+    );
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    this.handleFelch();
+  };
+
   render() {
     return (
       <div className="head-bar">
@@ -12,7 +50,12 @@ class SearchField extends React.Component {
           <h1 className="head-title">Prediction of secondary structure</h1>
           <Form className="search-form" onSubmit={this.handleSubmit}>
             <Container maxWidth="sm">
-              <Input type="text" name="search" placeholder="Search..." />
+              <Input
+                type="text"
+                name="search"
+                placeholder="Search..."
+                onChange={e => this.handleOnChange(`${e.target.value}`)}
+              />
             </Container>
           </Form>
         </Container>

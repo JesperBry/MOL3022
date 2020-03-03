@@ -18,7 +18,12 @@ class SequenceResult extends React.Component {
   }
 
   handleFelch = () => {
-    fetch("http://localhost:5000/").then(res =>
+    let apiURL = "http://localhost:5000/api";
+    if (process.env.NODE_ENV === "production") {
+      apiURL = "/api";
+    }
+
+    fetch(apiURL).then(res =>
       res
         .json()
         .then(data =>
