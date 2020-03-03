@@ -1,3 +1,5 @@
+import os
+
 import biotite
 import biotite.application.dssp as dssp
 import biotite.database.rcsb as rcsb
@@ -6,6 +8,8 @@ import biotite.structure.io.mmtf as mmtf
 import numpy as np
 from flask import Flask, jsonify, request
 from gevent.pywsgi import WSGIServer
+
+static_file_directory = os.environ.get("STATIC_DIRECTORY", "../client/build/")
 
 dssp_to_abc = {
     "I": "c",
@@ -18,11 +22,16 @@ dssp_to_abc = {
     "C": "c",
 }
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=static_file_directory, static_url_path="")
 
 
 @app.route("/")
-def main_route():
+def index_route():
+    return app.send_static_file("index.html")
+
+
+@app.route("/api")
+def api_route():
     pdb_id = request.args.get("pdb_id", "1Q2W")
     file_format = request.args.get("format", "mmtf")
     file_name = rcsb.fetch(pdb_id, file_format, biotite.temp_dir())
