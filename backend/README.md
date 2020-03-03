@@ -8,10 +8,6 @@ Install packages with `pip install -r req.txt`
 
 Run the backend with `python main.py`
 
-Test it out with `curl localhost:5000`
+Test it out with `curl localhost:5000/api`
 
-## Docker
-
-Build the docker image with `docker build -t mol .`
-
-Run with `docker run --rm -p 5000:5000 mol`
+The frontend has to be built first to be able to serve it as static files.
