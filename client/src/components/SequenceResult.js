@@ -18,12 +18,13 @@ class SequenceResult extends React.Component {
   }
 
   handleFelch = () => {
-    let apiURL = "http://localhost:5000/api";
+    let apiURL = "http://localhost:5000/api?pdb_id=";
     if (process.env.NODE_ENV === "production") {
-      apiURL = "/api";
+      apiURL = "/api?pdb_id=";
     }
 
-    fetch(apiURL).then(res =>
+    let pdbID = this.props.pdbID;
+    fetch(apiURL + pdbID).then(res =>
       res
         .json()
         .then(data =>
@@ -37,15 +38,16 @@ class SequenceResult extends React.Component {
     );
   };
 
-  componentDidMount() {
-    this.handleFelch();
+  componentDidUpdate(prevProps) {
+    if (prevProps.pdbID !== this.props.pdbID) {
+      this.handleFelch();
+    }
   }
 
   render() {
     return (
       <div className="sequence">
         <p>{this.state.sequenceData.map(s => mapStructureToNoe[s])}</p>
-        <hr />
       </div>
     );
   }

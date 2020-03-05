@@ -13,7 +13,8 @@ class SearchField extends React.Component {
     };
 
     this.setGlobal({
-      searchData: []
+      searchData: [],
+      error: false
     });
   }
 
@@ -36,6 +37,9 @@ class SearchField extends React.Component {
           })
         )
         .catch(error => {
+          this.setGlobal({
+            error: true
+          });
           console.log(error);
         })
     );

@@ -1,7 +1,6 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 
-import SequenceResult from "./components/SequenceResult";
 import TitleBar from "./components/TitleBar";
 import SearchField from "./components/SearchField";
 import ProteinList from "./components/ProteinList";
@@ -16,7 +15,6 @@ class App extends React.Component {
         <SearchField />
         <Container maxWidth="sm">
           <ProteinList />
-          {/* <SequenceResult /> */}
         </Container>
       </div>
     );

@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
+import SkyLight from "react-skylight";
 
 // import SearchField from "./SearchField";
 
@@ -17,10 +18,18 @@ class TitleBar extends React.Component {
           </NavbarBrand>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink onClick={() => this.simpleDialog.show()}>info</NavLink>
+              <NavLink onClick={() => this.dialog.show()}>info</NavLink>
             </NavItem>
           </Nav>
         </Navbar>
+
+        <SkyLight
+          hideOnOverlayClicked
+          ref={ref => (this.dialog = ref)}
+          title="Information"
+        >
+          TODO: write information
+        </SkyLight>
       </div>
     );
   }
