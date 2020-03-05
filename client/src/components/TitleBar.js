@@ -14,7 +14,7 @@ class TitleBar extends React.Component {
       <div>
         <Navbar color="dark" dark>
           <NavbarBrand className="title" href="/">
-            PSS
+            {/* PSS */}
           </NavbarBrand>
           <Nav className="ml-auto" navbar>
             <NavItem>

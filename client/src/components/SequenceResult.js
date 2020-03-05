@@ -1,6 +1,8 @@
 import React from "react";
+import Loader from "react-loader-spinner";
 
 import "../styles/sequenceResult.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 const mapStructureToNoe = {
   a: "H",
@@ -13,7 +15,8 @@ class SequenceResult extends React.Component {
     super(props);
 
     this.state = {
-      sequenceData: []
+      sequenceData: [],
+      loading: false
     };
   }
 
@@ -29,7 +32,8 @@ class SequenceResult extends React.Component {
         .json()
         .then(data =>
           this.setState({
-            sequenceData: data.secondary_structure
+            sequenceData: data.secondary_structure,
+            loading: false
           })
         )
         .catch(error => {
@@ -40,14 +44,26 @@ class SequenceResult extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.pdbID !== this.props.pdbID) {
-      this.handleFelch();
+      this.setState({ loading: true }, () => {
+        this.handleFelch();
+      });
     }
   }
 
   render() {
     return (
       <div className="sequence">
-        <p>{this.state.sequenceData.map(s => mapStructureToNoe[s])}</p>
+        {this.state.loading ? (
+          <Loader
+            type="ThreeDots"
+            color="#3b3b3b"
+            height={40}
+            width={40}
+            timeout={3000}
+          />
+        ) : (
+          <p>{this.state.sequenceData.map(s => mapStructureToNoe[s])}</p>
+        )}
       </div>
     );
   }
