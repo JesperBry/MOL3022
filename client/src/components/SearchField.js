@@ -26,8 +26,8 @@ class SearchField extends React.Component {
     if (process.env.NODE_ENV === "production") {
       apiURL = "/search?keywords=";
     }
-    console.log(apiURL + this.state.inputVal);
-    fetch(apiURL + this.state.inputVal).then(res =>
+    let searchVal = this.state.inputVal.replace(/[\n# $&:\n\t]/g, "%20");
+    fetch(apiURL + searchVal).then(res =>
       res
         .json()
         .then(data =>
