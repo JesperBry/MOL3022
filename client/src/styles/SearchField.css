@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700");
+
+.head-title {
+  text-align: center;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-size: 2.5rem;
+  letter-spacing: 0.4rem;
+  color: #ecf0f1;
+  margin-bottom: 1.5rem;
+}
+
+.head-bar {
+  background-color: #343a40;
+  height: 15rem;
+}
+
+input::placeholder {
+  color: #343a40;
+}
+
+input:focus {
+  outline: none;
+}
+
+.search-form input[type="text"] {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f6f7;
+  padding: 2rem;
+  padding-left: 1.5rem;
+  width: 50rem;
+  margin-bottom: 2rem;
+  border: none;
+  font-size: 1.6rem;
+  border-radius: 0.6rem;
+}

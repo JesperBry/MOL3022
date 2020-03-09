@@ -1,18 +1,24 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 
-import Header from "./components/Header";
+import TitleBar from "./components/TitleBar";
+import SearchField from "./components/SearchField";
+import ProteinList from "./components/ProteinList";
 
 import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <Container maxWidth="sm">
-        <Header />
-      </Container>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <TitleBar />
+        <SearchField />
+        <Container maxWidth="sm">
+          <ProteinList />
+        </Container>
+      </div>
+    );
+  }
 }
 
 export default App;
