@@ -19,6 +19,7 @@ Run with `docker run --rm -p 5000:5000 mol`
 
 ### Backend
 **Dependencies:**
+- DSSP
 - Python 3
 - Pip
 - virtualenv
