@@ -27,7 +27,7 @@ class ProteinList extends React.Component {
     const err = this.global.error;
     return (
       <div className="idList">
-        <p>{listArr.length} PDB id's found</p>
+        <p>{listArr.length} PDB IDs found</p>
         <ListGroup flush>
           {listArr.map((index, id) => (
             <ListGroupItem
