@@ -32,7 +32,7 @@ class SequenceResult extends React.Component {
         .json()
         .then(data =>
           this.setState({
-            sequenceData: data.secondary_structure,
+            sequenceData: data.dssp,
             loading: false
           })
         )

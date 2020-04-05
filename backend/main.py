@@ -10,18 +10,9 @@ import requests
 from flask import Flask, jsonify, request
 from gevent.pywsgi import WSGIServer
 
-static_file_directory = os.environ.get("STATIC_DIRECTORY", "../client/build/")
+from sse import dssp_sec, mmtf_sec, psea_sec
 
-dssp_to_abc = {
-    "I": "c",
-    "S": "c",
-    "H": "a",
-    "E": "b",
-    "G": "c",
-    "B": "b",
-    "T": "c",
-    "C": "c",
-}
+static_file_directory = os.environ.get("STATIC_DIRECTORY", "../client/build/")
 
 app = Flask(__name__, static_folder=static_file_directory, static_url_path="")
 
@@ -38,13 +29,21 @@ def api_route():
     file_name = rcsb.fetch(pdb_id, file_format, biotite.temp_dir())
     mmtf_file = mmtf.MMTFFile()
     mmtf_file.read(file_name)
-    array = mmtf.get_structure(mmtf_file, model=1)
-    tk_dimer = array[struc.filter_amino_acids(array)]
-    tk_mono = tk_dimer[tk_dimer.chain_id == "A"]
 
-    sse = dssp.DsspApp.annotate_sse(tk_mono)
-    sse = np.array([dssp_to_abc[e] for e in sse], dtype="U1")
-    return jsonify(secondary_structure=sse.tolist())
+    try:
+        mmtf_s = mmtf_sec(mmtf_file)
+    except:
+        mmtf_s = []
+    try:
+        dssp_s = dssp_sec(mmtf_file)
+    except:
+        dssp_s = []
+    try:
+        psea_s = psea_sec(mmtf_file)
+    except:
+        dssp_s = []
+
+    return jsonify(mmtf=mmtf_s.tolist(), dssp=dssp_s.tolist(), psea=psea_s.tolist())
 
 
 @app.route("/search")
