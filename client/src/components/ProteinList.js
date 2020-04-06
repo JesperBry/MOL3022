@@ -53,11 +53,7 @@ class ProteinList extends React.Component {
           </ListGroup>
         )}
 
-        <SkyLight
-          hideOnOverlayClicked
-          ref={(ref) => (this.dialog = ref)}
-          title={`Information about PDB: ${this.state.listID}`}
-        >
+        <SkyLight hideOnOverlayClicked ref={(ref) => (this.dialog = ref)}>
           {err ? (
             <p>An error occurred, please try again!</p>
           ) : (

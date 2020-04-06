@@ -1,24 +1,15 @@
 import React from "react";
-import Loader from "react-loader-spinner";
 import { parseString } from "xml2js";
 
 import "../styles/PDBinfo.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-
-const mapStructureToNoe = {
-  a: "~",
-  b: "▸", //🢒🢒🢒🢒🢒🢒🢒🢒🢒🢒
-  c: "―",
-};
 
 class SequenceResult extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      sequenceData: [],
       infoData: [],
-      loading: false,
     };
   }
 
@@ -39,32 +30,9 @@ class SequenceResult extends React.Component {
       });
   };
 
-  // handleFelch = () => {
-  //   let apiURL = "http://localhost:5000/api?pdb_id=";
-  //   if (process.env.NODE_ENV === "production") {
-  //     apiURL = "/api?pdb_id=";
-  //   }
-
-  //   let pdbID = this.props.pdbID;
-  //   fetch(apiURL + pdbID).then((res) =>
-  //     res
-  //       .json()
-  //       .then((data) =>
-  //         this.setState({
-  //           sequenceData: data.secondary_structure,
-  //           loading: false,
-  //         })
-  //       )
-  //       .catch((error) => {
-  //         console.log(error);
-  //       })
-  //   );
-  // };
-
   componentDidUpdate(prevProps) {
     if (prevProps.pdbID !== this.props.pdbID) {
       this.setState({ loading: true }, () => {
-        //this.handleFelch();
         this.getPdbEntityInfo();
       });
     }
@@ -73,7 +41,7 @@ class SequenceResult extends React.Component {
   render() {
     return (
       <div className="sequence">
-        <h1 align="left">{`${this.props.pdbID}`}</h1>
+        <h1 align="left">{`PDB: ${this.props.pdbID}`}</h1>
         {this.state.infoData.PDBdescription && (
           <React.Fragment>
             <h4 align="left">
