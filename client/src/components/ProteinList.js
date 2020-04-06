@@ -1,23 +1,26 @@
-import React, { Suspense, lazy } from "reactn";
+import React from "reactn";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import SkyLight from "react-skylight";
+import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
-import SequenceResult from "../components/SequenceResult";
+import PDBinfo from "./PDBinfo";
 
 import "../styles/ProteinList.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class ProteinList extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      listID: ""
+      listID: "",
     };
   }
 
-  handelOnClick = id => {
+  handelOnClick = (id) => {
     this.setState({
-      listID: id
+      listID: id,
     });
     this.dialog.show();
   };
@@ -28,27 +31,38 @@ class ProteinList extends React.Component {
     return (
       <div className="idList">
         <p>{listArr.length} PDB id's found</p>
-        <ListGroup flush>
-          {listArr.map((index, id) => (
-            <ListGroupItem
-              key={index}
-              action
-              onClick={() => this.handelOnClick(listArr[id])}
-            >
-              {listArr[id]}
-            </ListGroupItem>
-          ))}
-        </ListGroup>
+        {this.global.loading ? (
+          <Loader
+            type="ThreeDots"
+            color="#3b3b3b"
+            height={40}
+            width={40}
+            timeout={5000}
+          />
+        ) : (
+          <ListGroup flush>
+            {listArr.map((index, id) => (
+              <ListGroupItem
+                key={index}
+                action
+                onClick={() => this.handelOnClick(listArr[id])}
+              >
+                {listArr[id]}
+              </ListGroupItem>
+            ))}
+          </ListGroup>
+        )}
 
-        <SkyLight
-          hideOnOverlayClicked
-          ref={ref => (this.dialog = ref)}
-          title={`PDB ${this.state.listID}: predicted secondary structure`}
-        >
+        <SkyLight hideOnOverlayClicked ref={(ref) => (this.dialog = ref)}>
           {err ? (
             <p>An error occurred, please try again!</p>
           ) : (
-            <SequenceResult pdbID={this.state.listID} />
+            <div>
+              <PDBinfo pdbID={this.state.listID} />
+              <Link className="calc-results" to="/result">
+                Continue to prediction 🠚
+              </Link>
+            </div>
           )}
         </SkyLight>
       </div>

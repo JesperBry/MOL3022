@@ -33,3 +33,10 @@
   letter-spacing: 0.2rem;
   font-size: 2rem;
 }
+
+.information {
+  margin-top: 2rem;
+  font-size: 1.6rem;
+  padding: 1.6rem;
+  margin-left: 6rem;
+}

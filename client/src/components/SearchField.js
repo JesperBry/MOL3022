@@ -9,16 +9,17 @@ class SearchField extends React.Component {
     super(props);
 
     this.state = {
-      inputVal: ""
+      inputVal: "",
     };
 
     this.setGlobal({
       searchData: [],
-      error: false
+      error: false,
+      loading: false,
     });
   }
 
-  handleOnChange = e => {
+  handleOnChange = (e) => {
     this.setState({ inputVal: e });
   };
 
@@ -28,26 +29,29 @@ class SearchField extends React.Component {
       apiURL = "/search?keywords=";
     }
     let searchVal = this.state.inputVal.replace(/[\n# $&:\n\t]/g, "%20");
-    fetch(apiURL + searchVal).then(res =>
+    fetch(apiURL + searchVal).then((res) =>
       res
         .json()
-        .then(data =>
+        .then((data) =>
           this.setGlobal({
-            searchData: data.results
+            searchData: data.results,
+            loading: false,
           })
         )
-        .catch(error => {
+        .catch((error) => {
           this.setGlobal({
-            error: true
+            error: true,
           });
           console.log(error);
         })
     );
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    this.handleFelch();
+    this.setGlobal({ loading: true }, () => {
+      this.handleFelch();
+    });
   };
 
   render() {
@@ -61,7 +65,7 @@ class SearchField extends React.Component {
                 type="text"
                 name="search"
                 placeholder="Search..."
-                onChange={e => this.handleOnChange(`${e.target.value}`)}
+                onChange={(e) => this.handleOnChange(`${e.target.value}`)}
               />
             </Container>
           </Form>
