@@ -20,10 +20,6 @@ class App extends React.Component {
           <Route component={ResultPage} exact path="/result" />
           <Route component={HomePage} exact path="/" />
         </Switch>
-        <SearchField />
-        <Container maxWidth="sm">
-          <ProteinList />
-        </Container>
         <Result />
       </div>
     );
