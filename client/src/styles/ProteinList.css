@@ -3,3 +3,16 @@
   font-size: 2rem;
   margin: 2rem;
 }
+
+.calc-results:link :hover {
+  text-decoration: none;
+}
+
+.calc-results:link {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.4rem;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+  text-decoration: none;
+}
