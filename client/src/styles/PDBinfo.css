@@ -1,0 +1,22 @@
+.sequence {
+  padding: 1.6rem;
+  margin-left: 6rem;
+}
+
+.sequence h1 {
+  font-size: 4rem;
+  font-weight: lighter;
+  margin-bottom: 2.5rem;
+}
+
+.sequence p {
+  word-wrap: break-word;
+  margin-top: 1.6rem;
+  font-size: 1.6rem;
+}
+
+.sequence .url {
+  margin-top: 4rem;
+  font-size: 1.4rem;
+  letter-spacing: normal;
+}

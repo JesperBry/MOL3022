@@ -2,8 +2,6 @@ import React from "react";
 import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 import SkyLight from "react-skylight";
 
-// import SearchField from "./SearchField";
-
 import "../styles/TitleBar.css";
 
 class TitleBar extends React.Component {
@@ -25,10 +23,16 @@ class TitleBar extends React.Component {
 
         <SkyLight
           hideOnOverlayClicked
-          ref={ref => (this.dialog = ref)}
+          ref={(ref) => (this.dialog = ref)}
           title="Information"
         >
-          TODO: write information
+          <div align="left" className="information">
+            <h4>About this site</h4>
+            <p>TODO: write information</p>
+
+            <h4>How the site works</h4>
+            <p>TODO: write information</p>
+          </div>
         </SkyLight>
       </div>
     );

@@ -1,9 +1,10 @@
 import React from "react";
-import Container from "@material-ui/core/Container";
+import { Route, Switch } from "react-router-dom";
 
 import TitleBar from "./components/TitleBar";
-import SearchField from "./components/SearchField";
-import ProteinList from "./components/ProteinList";
+
+import HomePage from "./components/routes/HomePage";
+import ResultPage from "./components/routes/ResultPage";
 
 import "./App.css";
 
@@ -12,10 +13,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <TitleBar />
-        <SearchField />
-        <Container maxWidth="sm">
-          <ProteinList />
-        </Container>
+        <Switch>
+          <Route component={ResultPage} exact path="/result" />
+          <Route component={HomePage} exact path="/" />
+        </Switch>
       </div>
     );
   }
