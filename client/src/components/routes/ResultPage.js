@@ -1,9 +1,11 @@
-import React from "react";
-import Result from "./components/Result";
+import React from "reactn";
+import SequenceResult from "../SequenceResult";
+import FancySequenceResult from "../FancySequenceResult";
 
 const testPage = () => {
   return <div>
-    <Result />
+    <SequenceResult />
+    <FancySequenceResult />
   </div>;
 };
 
