@@ -17,7 +17,7 @@ class Result extends React.Component {
     render() {
         return (
             <div>
-                <SequenceResult pdbID={this.global.listID}/>
+                <SequenceResult listID={this.global.listID}/>
             </div>
         )
     }

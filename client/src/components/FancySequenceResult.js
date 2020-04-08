@@ -17,7 +17,7 @@ const mapStructureToNoeAnnet = {
   c: "–"
 }
 
-class SequenceResult extends React.Component {
+class FancySequenceResult extends React.Component {
   constructor(props) {
     super(props);
 
@@ -32,7 +32,10 @@ class SequenceResult extends React.Component {
     if (process.env.NODE_ENV === "production") {
       apiURL = "/api?pdb_id=";
     }
+
+    console.log(this.global.listID);
     
+
     let pdbID = this.global.listID;
     fetch(apiURL + pdbID).then(res =>
       res
@@ -58,6 +61,8 @@ class SequenceResult extends React.Component {
   } */
 
   componentDidMount = () => {
+    console.log("Fancy mount");
+      
     this.handleFelch();
     
     
@@ -67,7 +72,7 @@ class SequenceResult extends React.Component {
     console.log(this.state);
     
     this.setGlobal({
-      shit: "shit"
+      shit: "fancy shit"
     })
     console.log("global set");
     
@@ -77,7 +82,7 @@ class SequenceResult extends React.Component {
   }
   render() {
     return (
-      <div className="sequence">
+      <div className="fancysequence">
         {this.state.loading ? (
           <Loader
             type="ThreeDots"
@@ -95,4 +100,4 @@ class SequenceResult extends React.Component {
   }
 }
 
-export default SequenceResult;
+export default FancySequenceResult;
