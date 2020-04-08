@@ -29,21 +29,27 @@ def api_route():
     file_name = rcsb.fetch(pdb_id, file_format, biotite.temp_dir())
     mmtf_file = mmtf.MMTFFile()
     mmtf_file.read(file_name)
+    print()
 
     try:
-        mmtf_s = mmtf_sec(mmtf_file)
+        mmtf_s = mmtf_sec(mmtf_file).tolist()
     except:
         mmtf_s = []
     try:
-        dssp_s = dssp_sec(mmtf_file)
+        dssp_s = dssp_sec(mmtf_file).tolist()
     except:
         dssp_s = []
     try:
-        psea_s = psea_sec(mmtf_file)
+        psea_s = psea_sec(mmtf_file).tolist()
     except:
         dssp_s = []
 
-    return jsonify(mmtf=mmtf_s.tolist(), dssp=dssp_s.tolist(), psea=psea_s.tolist())
+    return jsonify(
+        sequence=list(mmtf_file["entityList"][0]["sequence"]),
+        mmtf=mmtf_s,
+        dssp=dssp_s,
+        psea=psea_s,
+    )
 
 
 @app.route("/search")
