@@ -3,6 +3,7 @@ import Loader from "react-loader-spinner";
 
 import "../styles/sequenceResult.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { Button } from "reactstrap";
 
 const mapStructureToNoe = {
   a: "H",
@@ -31,8 +32,8 @@ class SequenceResult extends React.Component {
     if (process.env.NODE_ENV === "production") {
       apiURL = "/api?pdb_id=";
     }
-
-    let pdbID = this.props.pdbID;
+    
+    let pdbID = this.global.listID;
     fetch(apiURL + pdbID).then(res =>
       res
         .json()
