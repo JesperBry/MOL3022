@@ -11,12 +11,6 @@ const mapStructureToNoe = {
   c: "-"
 };
 
-const mapStructureToNoeAnnet = {
-  a: "~",
-  b: "▸",
-  c: "–"
-}
-
 class SequenceResult extends React.Component {
   constructor(props) {
     super(props);
@@ -117,7 +111,7 @@ class SequenceResult extends React.Component {
             timeout={3000}
           />
         ) : (
-          <p>{this.state.sequenceData.map(s => mapStructureToNoeAnnet[s])}</p>
+          <p>{this.state.sequenceData.map(s => mapStructureToNoe[s])}</p>
         )}
       </div>
     );
