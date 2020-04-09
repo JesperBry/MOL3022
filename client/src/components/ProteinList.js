@@ -25,7 +25,6 @@ class ProteinList extends React.Component {
     this.setGlobal({
       listID: id
     })
-    console.log(this.global.listID);
     this.dialog.show();
   };
 
