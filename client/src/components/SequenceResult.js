@@ -23,7 +23,8 @@ class SequenceResult extends React.Component {
 
     this.state = {
       sequenceData: [],
-      loading: false
+      loading: false,
+      type: ""
     };
   }
 
@@ -34,50 +35,79 @@ class SequenceResult extends React.Component {
     }
     
     let pdbID = this.global.listID;
-    fetch(apiURL + pdbID).then(res =>
-      res
-        .json()
-        .then(data =>
-          this.setState({
-            sequenceData: data.dssp,
-            loading: false
+    if(this.state.type == "dssp"){
+      fetch(apiURL + pdbID).then(res =>
+        res
+          .json()
+          .then(data =>
+            this.setState({
+              sequenceData: data.dssp,
+              loading: false
+            })
+          )
+          .catch(error => {
+            console.log(error);
           })
-        )
-        .catch(error => {
-          console.log(error);
-        })
-    );
+      );
+    }
+    else if(this.state.type == "psea"){
+      fetch(apiURL + pdbID).then(res =>
+        res
+          .json()
+          .then(data =>
+            this.setState({
+              sequenceData: data.psea,
+              loading: false
+            })
+          )
+          .catch(error => {
+            console.log(error);
+          })
+      );
+    }
+    else if(this.state.type == "mmtf"){
+      fetch(apiURL + pdbID).then(res =>
+        res
+          .json()
+          .then(data =>
+            this.setState({
+              sequenceData: data.mmtf,
+              loading: false
+            })
+          )
+          .catch(error => {
+            console.log(error);
+          })
+      );
+    }
   };
 
- /*  componentDidUpdate(prevProps) {
-    if (prevProps.pdbID !== this.props.pdbID) {
-      this.setState({ loading: true }, () => {
-        this.handleFelch();
+  componentDidUpdate(prevProps) {
+    if (prevProps.type !== this.props.type) {
+      this.setState({ loading: true, type: this.props.type }, () => {
       });
+      this.handleFelch();
     }
-  } */
+  }
+
+  componentWillMount = () => {
+    this.setState({
+      type: this.props.type
+    })
+    
+  }
 
   componentDidMount = () => {
     this.handleFelch();
-    
-    
   }
 
   handleOnClick = () => {
     console.log(this.state);
-    
-    this.setGlobal({
-      shit: "shit"
-    })
-    console.log("global set");
-    
-    console.log(this.global.listID);
-    console.log(this.global.shit)
-    
   }
   render() {
     return (
       <div className="sequence">
+        <h3>{this.props.type}</h3>
         {this.state.loading ? (
           <Loader
             type="ThreeDots"
@@ -89,7 +119,6 @@ class SequenceResult extends React.Component {
         ) : (
           <p>{this.state.sequenceData.map(s => mapStructureToNoeAnnet[s])}</p>
         )}
-        <button onClick={this.handleOnClick}>asso so</button>
       </div>
     );
   }
