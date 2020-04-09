@@ -1,4 +1,4 @@
-import React from "react";
+import React from "reactn";
 import { parseString } from "xml2js";
 
 import "../styles/PDBinfo.css";

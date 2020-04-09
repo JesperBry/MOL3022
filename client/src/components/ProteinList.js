@@ -18,10 +18,13 @@ class ProteinList extends React.Component {
     };
   }
 
-  handelOnClick = (id) => {
+  handleOnClick = (id) => {
     this.setState({
       listID: id,
     });
+    this.setGlobal({
+      listID: id
+    })
     this.dialog.show();
   };
 
@@ -45,7 +48,7 @@ class ProteinList extends React.Component {
               <ListGroupItem
                 key={index}
                 action
-                onClick={() => this.handelOnClick(listArr[id])}
+                onClick={() => this.handleOnClick(listArr[id])}
               >
                 {listArr[id]}
               </ListGroupItem>
