@@ -27,11 +27,17 @@ class TitleBar extends React.Component {
           title="Information"
         >
           <div align="left" className="information">
-            <h4>About this site</h4>
-            <p>TODO: write information</p>
+            <h4>About This Tool</h4>
+            <p>This page is created as part of the NTNU course MOL3022 – Bioinformatics – Method Oriented Project.
+              Its purpose is to be helping in predicting the secondary structure of proteins, by providing a easy-to-use tool to search and view predictions from several sources.
+            </p>
 
-            <h4>How the site works</h4>
-            <p>TODO: write information</p>
+            <h4>How the Site Works</h4>
+            <p>You can search for proteins or keywords related to a protein in the search field. Pressing ENTER initializes the search.
+              After the search you are presented with a list of protein IDs related to the search. Clicking one of these IDs opens an info-panel
+              containing information regarding the protein. From the info-panel you can continue to a page containing secondary structure prediction
+              protein from DSSP, P-Sea and MMTF. 
+            </p>
           </div>
         </SkyLight>
       </div>
