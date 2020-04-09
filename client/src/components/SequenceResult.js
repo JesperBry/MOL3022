@@ -3,12 +3,11 @@ import Loader from "react-loader-spinner";
 
 import "../styles/sequenceResult.css";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import { Button } from "reactstrap";
 
 const mapStructureToNoe = {
   a: "H",
   b: "E",
-  c: "-"
+  c: "-",
 };
 
 class SequenceResult extends React.Component {
@@ -18,90 +17,95 @@ class SequenceResult extends React.Component {
     this.state = {
       sequenceData: [],
       loading: false,
-      type: ""
+      type: "",
+      primSeq: null,
     };
   }
 
-  handleFelch = () => {
+  handleFetch = () => {
     let apiURL = "http://localhost:5000/api?pdb_id=";
     if (process.env.NODE_ENV === "production") {
       apiURL = "/api?pdb_id=";
     }
-    
+
     let pdbID = this.global.listID;
-    if(this.state.type == "dssp"){
-      fetch(apiURL + pdbID).then(res =>
+
+    if (this.state.type === "dssp") {
+      fetch(apiURL + pdbID).then((res) =>
         res
           .json()
-          .then(data =>
+          .then((data) =>
             this.setState({
               sequenceData: data.dssp,
-              loading: false
+              loading: false,
             })
           )
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           })
       );
-    }
-    else if(this.state.type == "psea"){
-      fetch(apiURL + pdbID).then(res =>
+    } else if (this.state.type === "psea") {
+      fetch(apiURL + pdbID).then((res) =>
         res
           .json()
-          .then(data =>
+          .then((data) =>
             this.setState({
               sequenceData: data.psea,
-              loading: false
+              loading: false,
             })
           )
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           })
       );
-    }
-    else if(this.state.type == "mmtf"){
-      fetch(apiURL + pdbID).then(res =>
+    } else if (this.state.type === "mmtf") {
+      fetch(apiURL + pdbID).then((res) =>
         res
           .json()
-          .then(data =>
+          .then((data) =>
             this.setState({
               sequenceData: data.mmtf,
-              loading: false
+              loading: false,
             })
           )
-          .catch(error => {
+          .catch((error) => {
+            console.log(error);
+          })
+      );
+    } else if (this.state.type === "sequence") {
+      fetch(apiURL + pdbID).then((res) =>
+        res
+          .json()
+          .then((data) =>
+            this.setState({
+              primSeq: data.sequence,
+              loading: false,
+            })
+          )
+          .catch((error) => {
             console.log(error);
           })
       );
     }
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.type !== this.props.type) {
-      this.setState({ loading: true, type: this.props.type }, () => {
-      });
-      this.handleFelch();
-    }
-  }
-
   componentWillMount = () => {
     this.setState({
-      type: this.props.type
-    })
-    
-  }
+      type: this.props.type,
+    });
+  };
 
   componentDidMount = () => {
-    this.handleFelch();
-  }
+    this.setState({ loading: true }, () => {
+      this.handleFetch();
+    });
+  };
 
-  handleOnClick = () => {
-    console.log(this.state);
-  }
   render() {
     return (
       <div className="sequence">
-        <h3>{this.props.type}</h3>
+        <h4 align="left">{`${this.props.type.toUpperCase()}:`}</h4>
+        <p align="left">{this.state.primSeq}</p>
         {this.state.loading ? (
           <Loader
             type="ThreeDots"
@@ -111,7 +115,9 @@ class SequenceResult extends React.Component {
             timeout={3000}
           />
         ) : (
-          <p>{this.state.sequenceData.map(s => mapStructureToNoe[s])}</p>
+          <p align="left">
+            {this.state.sequenceData.map((s) => mapStructureToNoe[s])}
+          </p>
         )}
       </div>
     );
