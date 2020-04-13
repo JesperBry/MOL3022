@@ -1,14 +1,24 @@
 import React from "reactn";
+import { Collapse, Button, Table } from "reactstrap";
+
+import "../styles/Comparator.css";
 
 class Comparator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isOpen: false,
+    };
   }
+
+  toggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
+
   render() {
     return (
-      <div>
-        Compare
+      <div className="compare">
+        <strong>Compare</strong>
         <select
           onChange={(e) => this.setState({ a: e.target.value, b: undefined })}
           defaultValue="none"
@@ -45,20 +55,41 @@ class Comparator extends React.Component {
         )}
         {this.state.a && this.state.b && (
           <>
-            <div>
+            <div className="match">
               {Math.round(
                 this.global.result.diffs[this.state.a][this.state.b].percent *
                   100
               )}
               % match
             </div>
-            <div>
-              {this.global.result.diffs[this.state.a][this.state.b].diff
-                .split("\n")
-                .map((line, i) => (
-                  <div key={i}>{line}</div>
-                ))}
-            </div>
+            <Button
+              onClick={this.toggle}
+              style={{
+                padding: "1rem",
+                marginTop: "1.2rem",
+                fontSize: "1.6rem",
+              }}
+            >
+              More details
+            </Button>
+            <Collapse isOpen={this.state.isOpen}>
+              <div className="table">
+                {this.global.result.diffs[this.state.a][this.state.b].diff
+                  .split("\n")
+                  .map((line, i) => (
+                    <Table
+                      style={{
+                        marginTop: "1.2rem",
+                        width: "40%",
+                      }}
+                    >
+                      <td key={i} style={{ padding: "0.2rem" }}>
+                        {line}
+                      </td>
+                    </Table>
+                  ))}
+              </div>
+            </Collapse>
           </>
         )}
       </div>
