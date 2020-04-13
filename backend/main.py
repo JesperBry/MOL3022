@@ -10,7 +10,7 @@ import requests
 from flask import Flask, jsonify, request
 from gevent.pywsgi import WSGIServer
 
-from sse import dssp_sec, mmtf_sec, psea_sec
+from sse import diff_all, dssp_sec, mmtf_sec, psea_sec
 
 static_file_directory = os.environ.get("STATIC_DIRECTORY", "../client/build/")
 
@@ -44,11 +44,15 @@ def api_route():
     except:
         dssp_s = []
 
+    structs = {
+        "mmtf": mmtf_s,
+        "dssp": dssp_s,
+        "psea": psea_s,
+    }
     return jsonify(
         sequence=list(mmtf_file["entityList"][0]["sequence"]),
-        mmtf=mmtf_s,
-        dssp=dssp_s,
-        psea=psea_s,
+        **structs,
+        diffs=diff_all(**structs),
     )
 
 
