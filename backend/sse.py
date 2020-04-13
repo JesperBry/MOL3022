@@ -1,3 +1,6 @@
+import itertools
+from difflib import Differ, SequenceMatcher
+
 import biotite
 import biotite.application.dssp as dssp
 import biotite.database.rcsb as rcsb
@@ -17,6 +20,41 @@ dssp_to_abc = {
     "T": "c",
     "C": "c",
 }
+
+
+def diff(a, b):
+    remap = {
+        "a": "H",
+        "b": "E",
+        "c": "-",
+    }
+    d = []
+    matches = 0
+    last_matches = True
+    for i in range(min(len(a), len(b))):
+        if a[i] != b[i]:
+            if not last_matches:
+                d.append("...")
+            d.append(f"#{i} {remap[a[i]]} != {remap[b[i]]}")
+            last_matches = True
+        else:
+            matches += 1
+            last_matches = False
+
+    m = max(len(a), len(b))
+    return {"diff": "\n".join(d), "percent": m and matches / m}
+
+
+def diff_all(**kwargs):
+    keys = kwargs.keys()
+    diffs = {}
+    for (a, b) in itertools.permutations(keys, 2):
+        if a == b:
+            continue
+        d = diffs.get(a, {})
+        d[b] = diff(kwargs[a], kwargs[b])
+        diffs[a] = d
+    return diffs
 
 
 def mmtf_sec(file):
