@@ -1,0 +1,18 @@
+.compare select {
+  margin: 1.6rem;
+  padding: 0.3rem;
+}
+
+.compare {
+  font-size: 1.6rem;
+}
+
+.match {
+  font-weight: bold;
+}
+
+.table {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0rem;
+}
