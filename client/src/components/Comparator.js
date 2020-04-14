@@ -34,7 +34,7 @@ class Comparator extends React.Component {
         </select>
         {this.state.a && (
           <>
-            to
+            with
             <select
               value={this.state.b || "none"}
               onChange={(e) => this.setState({ b: e.target.value })}
@@ -68,9 +68,10 @@ class Comparator extends React.Component {
                 padding: "1rem",
                 marginTop: "1.2rem",
                 fontSize: "1.6rem",
+                marginBottom: "1.2rem",
               }}
             >
-              More details
+              {this.state.isOpen ? "Less details" : "More details"}
             </Button>
             <Collapse isOpen={this.state.isOpen}>
               <div className="table">
@@ -78,12 +79,22 @@ class Comparator extends React.Component {
                   .split("\n")
                   .map((line, i) => (
                     <Table
+                      size="sm"
+                      borderless
                       style={{
-                        marginTop: "1.2rem",
                         width: "40%",
+                        paddingTop: "0rem",
+                        paddingBottom: "0rem",
                       }}
                     >
-                      <td key={i} style={{ padding: "0.2rem" }}>
+                      <td
+                        key={i}
+                        style={{
+                          margin: "0rem",
+                          paddingBottom: "0rem",
+                          paddingTop: "0rem",
+                        }}
+                      >
                         {line}
                       </td>
                     </Table>
